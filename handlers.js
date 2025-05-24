@@ -4,6 +4,11 @@ const EPGManager = require('./epg-manager');
 const StreamProxyManager = require('./stream-proxy-manager')(config);
 const ResolverStreamManager = require('./resolver-stream-manager')(config);
 
+
+function normalizeId(id) {
+    return id?.toLowerCase().replace(/[^\w.]/g, '').trim() || '';
+}
+
 function cleanNameForImage(name) {
     // Prima rimuoviamo la data e l'ora se presente (pattern: dd/dd/dd - dd:dd (CET))
     let cleaned = name.replace(/\d{2}\/\d{2}\/\d{2}\s*-\s*\d{2}:\d{2}\s*\(CET\)/g, '').trim();
@@ -156,8 +161,8 @@ function enrichWithEPG(meta, channelId, userConfig) {
         return meta;
     }
 
-    const currentProgram = EPGManager.getCurrentProgram(channelId);
-    const upcomingPrograms = EPGManager.getUpcomingPrograms(channelId);
+    const currentProgram = EPGManager.getCurrentProgram(normalizeId(channelId));
+    const upcomingPrograms = EPGManager.getUpcomingPrograms(normalizeId(channelId));
 
     if (currentProgram) {
         meta.description = `IN ONDA ORA:\n${currentProgram.title}`;

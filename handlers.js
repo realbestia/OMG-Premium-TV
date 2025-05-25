@@ -187,7 +187,7 @@ async function streamHandler({ id, config: userConfig }) {
         // Aggiorna sempre la configurazione
         await CacheManager.updateConfig(userConfig);
 
-        const channelId = id.split('|')[];
+        const channelId = id.split('|')[1];
         
         // Gestione canale speciale per la rigenerazione playlist
         if (channelId === 'rigeneraplaylistpython') {

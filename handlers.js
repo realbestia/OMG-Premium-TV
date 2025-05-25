@@ -24,7 +24,7 @@ function cleanNameForImage(name) {
     
     // Prendiamo solo la parte principale del nome
     let parts = cleaned.split(' - ');
-    if (parts.length > ) {
+    if (parts.length > 1) {
         cleaned = parts[0].trim();
     }
     

@@ -24,7 +24,7 @@ function cleanNameForImage(name) {
     
     // Prendiamo solo la parte principale del nome
     let parts = cleaned.split(' - ');
-    if (parts.length > 1) {
+    if (parts.length > ) {
         cleaned = parts[0].trim();
     }
     
@@ -95,13 +95,6 @@ async function catalogHandler({ type, id, extra, config: userConfig }) {
         let filteredChannels = CacheManager.getFilteredChannels();
         const cachedData = CacheManager.getCachedData();
 
-        // Ordina i canali
-        filteredChannels.sort((a, b) => {
-            const numA = parseInt(a.streamInfo?.tvg?.chno) || Number.MAX_SAFE_INTEGER;
-            const numB = parseInt(b.streamInfo?.tvg?.chno) || Number.MAX_SAFE_INTEGER;
-            return numA - numB || a.name.localeCompare(b.name);
-        });
-
         const paginatedChannels = filteredChannels.slice(skip, skip + ITEMS_PER_PAGE);
 
         const metas = paginatedChannels.map(channel => {
@@ -171,12 +164,6 @@ function enrichWithEPG(meta, channelId, userConfig) {
             meta.description += `\n${currentProgram.description}`;
         }
 
-        meta.description += `\nOrario: ${currentProgram.start} - ${currentProgram.stop}`;
-
-        if (currentProgram.category) {
-            meta.description += `\nCategoria: ${currentProgram.category}`;
-        }
-
         if (upcomingPrograms && upcomingPrograms.length > 0) {
             meta.description += '\n\nPROSSIMI PROGRAMMI:';
             upcomingPrograms.forEach(program => {
@@ -200,7 +187,7 @@ async function streamHandler({ id, config: userConfig }) {
         // Aggiorna sempre la configurazione
         await CacheManager.updateConfig(userConfig);
 
-        const channelId = id.split('|')[1];
+        const channelId = id.split('|')[];
         
         // Gestione canale speciale per la rigenerazione playlist
         if (channelId === 'rigeneraplaylistpython') {
@@ -222,7 +209,7 @@ async function streamHandler({ id, config: userConfig }) {
                     streams: [{
                         name: 'Completato',
                         title: '✅ Playlist rigenerata con successo!\n Riavvia stremio o torna indietro.',
-                        url: 'https://static.vecteezy.com/system/resources/previews/001/803/236/mp4/no-signal-bad-tv-free-video.mp4',
+                        url: 'https://static.vecteezy.com/system/resources/previews/00/803/236/mp4/no-signal-bad-tv-free-video.mp4',
                         behaviorHints: {
                             notWebReady: false,
                             bingeGroup: "tv"
@@ -235,7 +222,7 @@ async function streamHandler({ id, config: userConfig }) {
                     streams: [{
                         name: 'Errore',
                         title: `❌ Errore: ${PythonRunner.lastError || 'Errore sconosciuto'}`,
-                        url: 'https://static.vecteezy.com/system/resources/previews/001/803/236/mp4/no-signal-bad-tv-free-video.mp4',
+                        url: 'https://static.vecteezy.com/system/resources/previews/00/803/236/mp4/no-signal-bad-tv-free-video.mp4',
                         behaviorHints: {
                             notWebReady: false,
                             bingeGroup: "tv"
@@ -317,7 +304,7 @@ async function streamHandler({ id, config: userConfig }) {
                         }
                     } else {
                         // Se force_proxy NON è attivo:
-                        // 1. Aggiungiamo prima i flussi risolti originali
+                        // . Aggiungiamo prima i flussi risolti originali
                         streams = resolvedStreams;
                         
                         // 2. Aggiungiamo anche i flussi risolti tramite proxy, se il proxy è configurato
